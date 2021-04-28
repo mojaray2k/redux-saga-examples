@@ -1,20 +1,26 @@
 import React, { Component } from 'react';
 
+import UserList from './UserList';
 import { connect } from 'react-redux';
-import {get_users_request} from '../actions/users'
+import {getUsersRequest} from '../actions/users'
 
 class App extends Component {
   constructor(props) {
     super(props)
-    this.props.get_users_request();
+    this.props.getUsersRequest();
   }
 
 
   render() {
-    return <div>Test</div>;
+    const users = this.props.users;
+    return (
+      <div style={{margin: "0 auto", padding: "20px", maxWidth: "600px"}}>
+        <UserList users={users.items}/>
+      </div>
+    );
   }
 }
 
-export default connect(null, {
-  get_users_request
+export default connect(({users}) => ({users}), {
+  getUsersRequest
 })(App);

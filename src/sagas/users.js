@@ -1,12 +1,14 @@
 import * as actions from '../actions/users';
 import * as api from '../api/users';
 
-import { call, fork, takeEvery } from 'redux-saga/effects';
+import { call, fork, put, takeEvery } from 'redux-saga/effects';
 
 function* getUsers() {
   try {
       const result = yield call(api.getUsers);
-      console.log(result);
+      yield put(actions.getUsersSuccess({
+        items: result.data.data
+      }));
   } catch (e) {
 
   }
